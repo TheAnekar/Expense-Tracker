@@ -343,3 +343,209 @@ And we will:
 * and write your first meaningful commit
 
 This is the start of something solid, mate.
+
+
+
+✅ STAGE 0 — PROJECT SETUP & DISCIPLINE (RECAP)
+Objective
+
+Establish a clean, professional foundation before writing any application logic or UI code.
+
+What was accomplished
+
+Created a new GitHub repository for the project
+
+Cloned the repository locally
+
+Added a README.md documenting:
+
+project vision
+
+learning goals
+
+mentorship rules (no code dumping, fundamentals-first)
+
+Designed and created a clear folder structure:
+
+frontend/ → user interface code (HTML, CSS, JS)
+
+backend/ → server and database logic (Node, Express, SQLite)
+
+Made the first meaningful Git commit to establish project identity
+
+Explicitly decided:
+
+frontend entry point will be a dashboard
+
+backend entry point will be a single server file (later)
+
+Locked a Dashboard-first UX:
+
+read-heavy dashboard (balances, expenses)
+
+single “+” action for all write operations (add account / expense)
+
+Key principles learned in Stage 0
+
+Project structure matters before features
+
+Version control is a habit, not an afterthought
+
+Decisions should be made intentionally before implementation
+
+Separation of concerns (frontend vs backend) prevents chaos later
+
+Documentation is part of engineering, not optional
+
+Outcome
+
+A calm, organized, and future-proof project foundation with:
+
+zero technical debt
+
+clear direction
+
+and disciplined workflows
+
+🧠 STAGE 1 — DATA THINKING & MODEL DESIGN
+Objective
+
+Design a clear, minimal, and correct data model that supports the dashboard-first user experience without relying on UI, backend, or database implementation details.
+
+The goal of this stage was to answer:
+
+“What data must exist for this app to work correctly, and what should be calculated instead of stored?”
+
+🎯 Core Product Ideas
+
+The application is dashboard-first
+
+The dashboard is read-heavy (view balances and transactions)
+
+All changes to money happen only through explicit user actions
+
+The app is offline-first and relies purely on user input
+
+Accuracy and trust in numbers are more important than visual polish
+
+🧱 Fundamental Principles Locked in Stage 1
+1. Accounts do not change themselves
+
+An account is a passive entity.
+It does not update its balance directly.
+
+2. All money changes are explained by transactions
+
+Every increase or decrease in money must be represented as a transaction.
+
+3. Derived values must never be stored
+
+Values like current balance and total money are calculated, not saved, to avoid inconsistencies.
+
+🏦 Data Model: Account
+Purpose
+
+An Account represents a distinct place where money is stored and tracked independently (e.g., bank account, cash, travel card).
+
+Accounts exist to answer:
+
+“Where is my money located right now?”
+
+Account Structure
+
+id
+Unique identifier for the account (used internally by the system)
+
+name
+Human-readable name of the account (e.g., “HDFC Bank”, “Cash”)
+
+initial_balance
+The starting amount of money when the account is created
+
+Important Notes
+
+Current balance is not stored
+
+Current balance is derived from transactions
+
+Accounts are independent of each other
+
+🔁 Data Model: Transaction
+Purpose
+
+A Transaction represents a single event where money either enters or leaves an account at a specific point in time.
+
+Transactions exist to explain:
+
+“Why did an account’s balance change?”
+
+This unified model handles both income and expense events.
+
+Transaction Structure
+
+id
+Unique identifier for the transaction
+
+amount
+The amount of money involved
+
+type
+Direction of money flow (income or expense)
+
+date
+The date on which the transaction occurred
+
+account_id
+Reference to the account affected by this transaction
+
+category
+Purpose of the transaction (e.g., food, travel, entertainment)
+
+note
+Optional user-provided description (e.g., “Tea”)
+
+🧮 Derived Calculations
+Account Current Balance
+
+Calculated as:
+
+initial_balance
++ sum(all income transactions for the account)
+- sum(all expense transactions for the account)
+
+Total Money Across All Accounts
+
+Calculated as:
+
+sum(current balance of all accounts)
+
+
+These values are never stored directly.
+
+📊 Dashboard Requirements Coverage
+
+The data model fully supports the dashboard’s responsibilities:
+
+Display all accounts with their current balance
+
+Display all transactions with clear differentiation between income and expense
+
+Allow future visual differentiation (icons, colors, symbols) without changing the data model
+
+Support a clean read-only dashboard with explicit write actions via a “+” control
+
+No additional data structures are required for Version 1.
+
+✅ Outcome of Stage 1
+
+By the end of this stage:
+
+The core data model is finalized and locked
+
+All dashboard requirements are satisfied
+
+The foundation is scalable for future features
+
+The risk of balance-related bugs is minimized
+
+Stage 1 intentionally avoids UI, backend, and database concerns to keep the system conceptually sound.
